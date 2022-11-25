@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Form() {
   //To Store the Value from FrontEnd
   const [title, setTitle] = useState("");
-
   console.log(title);
 
   const submitData = async () => {
@@ -13,6 +14,16 @@ function Form() {
     };
     const res = await axios.post("/createTodo", data);
     console.log(res);
+    toast.success("Created Todo Succesfully !", {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   };
 
   //Handle Default
@@ -65,6 +76,7 @@ function Form() {
           </div>
         </section>
       </form>
+      <ToastContainer />
     </div>
   );
 }

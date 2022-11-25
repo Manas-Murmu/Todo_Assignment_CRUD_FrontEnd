@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function TodoList() {
   const [todosData, setTodosData] = useState("");
@@ -19,11 +21,11 @@ function TodoList() {
 
   useEffect(() => {
     fetchUserData();
-  }, [todosData, taskData, fetchTaskData, fetchUserData]);
+  }, [todosData, taskData]);
 
   //Handle Edit
   const handleEdit = async (user) => {
-    const Title = prompt("Enter your New Title");
+    const Title = prompt("Enter your New Title", user.title);
 
     if (!Title) {
       alert("Enter all Fields");
@@ -32,12 +34,34 @@ function TodoList() {
         title: Title,
       });
       console.log(response);
+      toast.info("Todo Edited Succesfully!", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
   //Handle Delete
   const handleDelete = async (userId) => {
     const response = await axios.delete(`/deleteATodo/${userId}`);
+    if (response) {
+      toast.error("Deleted the Todo!", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
 
   //Handle Add Task to Todo
@@ -50,7 +74,16 @@ function TodoList() {
       const response = await axios.post(`/createTaskTodo/${user._id}`, {
         tasks: task,
       });
-      alert("Task Added Succesfully");
+      toast.success("Task Added!", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       console.log(response);
     }
   };
