@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function TodoList() {
-  const [todosData, setTodosData] = useState(null);
+  const [todosData, setTodosData] = useState("");
   const [taskData, setTaskData] = useState("");
 
   const fetchUserData = async () => {
@@ -19,7 +19,7 @@ function TodoList() {
 
   useEffect(() => {
     fetchUserData();
-  }, [fetchTaskData, fetchUserData]);
+  }, [todosData, taskData, fetchTaskData, fetchUserData]);
 
   //Handle Edit
   const handleEdit = async (user) => {
@@ -41,14 +41,14 @@ function TodoList() {
   };
 
   return (
-    <section className="text-gray-600 body-font">
-      <div className="container px-5 py-14 mx-auto">
+    <section className="text-gray-600 body-font ">
+      <div className="container px-5 py-14 mx-auto ">
         <div className="flex flex-col w-full mb-8">
-          <h1 className="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">
+          <h1 className="sm:text-3xl lg:w-3/4 text-2xl font-medium title-font mb-2 text-gray-900">
             All Todos
           </h1>
         </div>
-        <div className="lg:w-2/3 w-full  overflow-auto">
+        <div className="lg:w-2/3 w-full overflow-auto">
           <table className="table-auto text-left whitespace-no-wrap">
             <thead>
               <tr>
@@ -70,19 +70,21 @@ function TodoList() {
               {todosData &&
                 todosData.map((todo) => (
                   <tr>
-                    <td className="px-4 py-3">{todo.title}</td>
+                    <td className="px-4 py-3 text-black font-bold text-md">
+                      {todo.title}
+                    </td>
                     <td className="px-4 py-3">
                       <button
                         onClick={() => fetchTaskData(todo)}
-                        className="hover:text-green-500"
+                        className="text-blue-500 font-semibold"
                       >
-                        View Details
+                        View Tasks
                       </button>
                     </td>
                     <td className="px-4 py-3">
                       <button
                         onClick={() => handleEdit(todo)}
-                        className="hover:text-green-500"
+                        className="text-green-700 font-semibold"
                       >
                         Edit
                       </button>
@@ -90,7 +92,7 @@ function TodoList() {
                     <td className="px-4 py-3 text-lg text-gray-900">
                       <button
                         onClick={() => handleDelete(todo._id)}
-                        className="hover:text-red-500"
+                        className="text-red-500 font-semibold"
                       >
                         Delete
                       </button>
@@ -99,25 +101,26 @@ function TodoList() {
                 ))}
             </tbody>
           </table>
-
-          <div>
-            <h1 className="sm:text-1xl mt-5 text-3xl font-medium title-font mb-2 text-gray-900 text-center">
-              All Tasks
-            </h1>
-            {taskData &&
-              taskData.Tasks.map((task) => (
-                <div class="font-sans flex items-center justify-center bg-blue-darker w-full py-1">
-                  <div class="overflow-hidden bg-white rounded max-w-xs w-full shadow-lg  leading-normal ">
-                    <a
-                      href="#"
-                      class="block group hover:bg-blue p-4 mt-1 border-b bg-gray-100"
-                    >
-                      <p class="font-bold text-lg mb-1 text-black ">{task}</p>
-                    </a>
-                  </div>
+        </div>
+      </div>
+      <div className="relative">
+        <div className="absolute left-14">
+          <h1 className="sm:text-3xl mt-5 text-2xl w-full font-medium title-font mb-2 text-gray-900 ">
+            All Tasks
+          </h1>
+          {taskData &&
+            taskData.Tasks.map((task) => (
+              <div class="font-sans flex items-center justify-center bg-blue-darker w-full py-1">
+                <div class="overflow-hidden bg-white rounded max-w-xs w-full shadow-lg leading-normal">
+                  <a
+                    href="#"
+                    class="block group hover:bg-blue p-4 mt-1 border-b bg-gray-100 w-full"
+                  >
+                    <p class="font-bold text-lg text-black w-full">{task}</p>
+                  </a>
                 </div>
-              ))}
-          </div>
+              </div>
+            ))}
         </div>
       </div>
     </section>
@@ -125,7 +128,3 @@ function TodoList() {
 }
 
 export default TodoList;
-
-// <div>
-//   <ol>{taskData && taskData.Tasks.map((task) => <li>{task}</li>)}</ol>
-// </div>;

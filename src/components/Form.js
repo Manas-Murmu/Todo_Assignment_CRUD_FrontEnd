@@ -27,12 +27,12 @@ function Form() {
       <form onSubmit={handleSubmit}>
         <section className="text-gray-600 body-font relative">
           <div className="container px-5 py-8 mx-auto">
-            <div className="flex flex-col text-left w-full mb-6">
-              <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900">
+            <div className="flex flex-col text-center justify-items-center mx-auto w-full mb-6">
+              <h1 className="sm:text-3xl lg:w-3/4 text-2xl text-left font-medium title-font text-gray-900">
                 Create Todos
               </h1>
             </div>
-            <div className="lg:w-1/2 md:w-2/3 ">
+            <div className="lg:w-1/2 md:w-2/3 lg:w-3/5">
               <div className="flex flex-wrap -m-2">
                 <div className="p-2 w-1/2">
                   <div className="relative">
@@ -48,7 +48,7 @@ function Form() {
                       name="title"
                       value={title}
                       onChange={(event) => setTitle(event.target.value)}
-                      className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                      className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out "
                     />
                   </div>
                 </div>
