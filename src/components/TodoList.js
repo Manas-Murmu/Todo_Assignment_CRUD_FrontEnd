@@ -40,6 +40,21 @@ function TodoList() {
     const response = await axios.delete(`/deleteATodo/${userId}`);
   };
 
+  //Handle Add Task to Todo
+  const addTaskToTodo = async (user) => {
+    const task = prompt("Enter your Task");
+
+    if (!task) {
+      alert("Enter all Fields");
+    } else {
+      const response = await axios.post(`/createTaskTodo/${user._id}`, {
+        tasks: task,
+      });
+      alert("Task Added Succesfully");
+      console.log(response);
+    }
+  };
+
   return (
     <section className="m-auto p-1 text-grey-darkest">
       <div className="container px-5 py-1 mx-auto grid grid-cols-2">
@@ -54,7 +69,10 @@ function TodoList() {
                   Title
                 </th>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                  View Details
+                  Add Task
+                </th>
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                  Details
                 </th>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Edit
@@ -70,6 +88,14 @@ function TodoList() {
                   <tr>
                     <td className="px-4 py-3 text-black font-bold text-md">
                       {todo.title}
+                    </td>
+                    <td className="px-4 py-3">
+                      <button
+                        onClick={() => addTaskToTodo(todo)}
+                        className="text-blue-500 font-semibold"
+                      >
+                        Add Tasks
+                      </button>
                     </td>
                     <td className="px-4 py-3">
                       <button
