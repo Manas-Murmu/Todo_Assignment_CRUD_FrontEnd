@@ -74,9 +74,9 @@ function Form() {
               </div>
             </div>
           </div>
+          <ToastContainer />
         </section>
       </form>
-      <ToastContainer />
     </div>
   );
 }
