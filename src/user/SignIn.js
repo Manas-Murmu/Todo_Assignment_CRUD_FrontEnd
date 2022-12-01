@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -32,7 +34,16 @@ function SignIn() {
       .then(function (response) {
         console.log(response.data);
         localStorage.setItem("token", response.data.token);
-        alert("Login Success");
+        toast.success("Login Succes!", {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         navigate("/dashboard");
       })
       .catch((error) => {
@@ -78,6 +89,7 @@ function SignIn() {
           <a href="#" className="text-xs text-purple-600 hover:underline">
             Forget Password?
           </a>
+          <h1></h1>
           <div className="mt-6">
             <button
               onClick={handleClick}
