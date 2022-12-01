@@ -9,6 +9,7 @@ function Header() {
     checkStorage();
     return () => {};
   }, [isLogged]);
+
   function checkStorage() {
     if (localStorage.getItem("token")) {
       setisLogged(true);
@@ -27,20 +28,16 @@ function Header() {
         <Link to="/">Todo App</Link>
       </div>
       <ul>
-        {isLogged ? (
-          <li>
-            <Link to="/signin" onClick={logout}>
-              <FaSignOutAlt /> Logout
-            </Link>
-          </li>
-        ) : (
-          <li>
-            <Link to="/signin">
-              <FaSignInAlt /> Login
-            </Link>
-          </li>
-        )}
-
+        <li>
+          <Link to="/signin" onClick={logout}>
+            <FaSignOutAlt /> Logout
+          </Link>
+        </li>
+        <li>
+          <Link to="/signin">
+            <FaSignInAlt /> Login
+          </Link>
+        </li>
         <li>
           <Link to="/signup">
             <FaUser /> Register

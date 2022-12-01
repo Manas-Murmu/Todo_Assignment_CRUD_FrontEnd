@@ -30,7 +30,7 @@ function SignUp() {
       .then(function (response) {
         console.log(response.data);
         toast.success("Registered Succes!", {
-          position: "top-center",
+          position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
