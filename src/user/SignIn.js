@@ -4,6 +4,8 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+const BASEURL = "https://todoassignmentcrud-production.up.railway.app";
+
 function SignIn() {
   const navigate = useNavigate();
 
@@ -18,41 +20,55 @@ function SignIn() {
     }
   }, [navigate]);
 
+  const validateFields = () => {
+    if (email === "") {
+      setError("Email cannot be blank");
+      return false;
+    }
+    if (password === "") {
+      setError("Password cannot be blank");
+      return false;
+    }
+    return true;
+  };
+
   const handleClick = (e) => {
     e.preventDefault();
-    let data = JSON.stringify({
-      password,
-      email,
-    });
-
-    axios
-      .post("http://localhost:4000/login", data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then(function (response) {
-        console.log(response.data);
-        localStorage.setItem("token", response.data.token);
-        toast.success("Login Succes!", {
-          position: "bottom-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-        navigate("/dashboard");
-      })
-      .catch((error) => {
-        console.log(error.response.data);
-        setError(error.response.data.message);
-        setTimeout(() => {
-          setError("");
-        }, 5000);
+    if (validateFields) {
+      let data = JSON.stringify({
+        password,
+        email,
       });
+
+      axios
+        .post(`${BASEURL}/login`, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then(function (response) {
+          console.log(response.data);
+          localStorage.setItem("token", response.data.token);
+          toast.success("Login Succes!", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+          navigate("/dashboard");
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+          setError(error.response.data.message);
+          setTimeout(() => {
+            setError("");
+          }, 5000);
+        });
+    }
   };
 
   return (

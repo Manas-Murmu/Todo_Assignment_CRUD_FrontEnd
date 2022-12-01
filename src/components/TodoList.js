@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FaTrash, FaPenNib, FaPlus, FaAlignJustify } from "react-icons/fa";
+
+const BASEURL = "https://todoassignmentcrud-production.up.railway.app";
 
 function TodoList() {
   const [todosData, setTodosData] = useState("");
@@ -9,12 +12,14 @@ function TodoList() {
   const [taskId, setTaskId] = useState("");
 
   const fetchUserData = async () => {
-    const response = await axios.get("/getAllTodos");
+    const response = await axios.get(`${BASEURL}/getAllTodos`);
     setTodosData(response.data.allTodos);
   };
 
   const fetchTaskData = async (user) => {
-    const taskResponse = await axios.get(`/getATaskInTodo/${user._id}`);
+    const taskResponse = await axios.get(
+      `${BASEURL}/getATaskInTodo/${user._id}`
+    );
     console.log(taskResponse.data);
     setTaskData(taskResponse.data);
     setTaskId(user._id);
@@ -31,7 +36,7 @@ function TodoList() {
     if (!Title.length > 0) {
       alert("Enter all Fields");
     } else {
-      const response = await axios.put(`/editATodo/${user._id}`, {
+      const response = await axios.put(`${BASEURL}/editATodo/${user._id}`, {
         title: Title,
       });
       console.log(response);
@@ -50,7 +55,7 @@ function TodoList() {
 
   //Handle Delete
   const handleDelete = async (userId) => {
-    const response = await axios.delete(`/deleteATodo/${userId}`);
+    const response = await axios.delete(`${BASEURL}/deleteATodo/${userId}`);
     if (response) {
       toast.error("Deleted the Todo!", {
         position: "bottom-right",
@@ -72,9 +77,12 @@ function TodoList() {
     if (!task) {
       alert("Enter all Fields");
     } else {
-      const response = await axios.post(`/createTaskTodo/${user._id}`, {
-        tasks: task,
-      });
+      const response = await axios.post(
+        `${BASEURL}/createTaskTodo/${user._id}`,
+        {
+          tasks: task,
+        }
+      );
       toast.success("Task Added!", {
         position: "bottom-right",
         autoClose: 2000,
@@ -100,10 +108,13 @@ function TodoList() {
     if (!editedTask.length > 0) {
       alert("Task Cannot be Empty");
     } else {
-      const taskResponse = await axios.put(`/editATaskInTodo/${taskId}`, {
-        index: key,
-        tasks: editedTask,
-      });
+      const taskResponse = await axios.put(
+        `${BASEURL}/editATaskInTodo/${taskId}`,
+        {
+          index: key,
+          tasks: editedTask,
+        }
+      );
       console.log(taskResponse);
       toast.info("Task Edited Succesfully!", {
         position: "bottom-right",
@@ -120,11 +131,14 @@ function TodoList() {
 
   const handleDeleteTask = async (task) => {
     console.log(task);
-    const response = await axios.delete(`/deleteATaskInTodo/${taskId}`, {
-      data: {
-        tasks: task,
-      },
-    });
+    const response = await axios.delete(
+      `${BASEURL}/deleteATaskInTodo/${taskId}`,
+      {
+        data: {
+          tasks: task,
+        },
+      }
+    );
     if (response) {
       toast.error("Deleted the Task in Todo!", {
         position: "bottom-right",
@@ -144,7 +158,7 @@ function TodoList() {
     <section className="m-auto p-1 text-grey-darkest">
       <div className="container px-5 py-1 mx-auto grid grid-cols-2">
         <div className="lg:w-2/2 w-full overflow-auto">
-          <h1 className="sm:text-3xl lg:w-3/4 text-2xl text-left font-medium title-font text-gray-900 mb-5">
+          <h1 className="sm:text-3xl lg:w-3/4 text-2xl text-left font-medium title-font text-gray-900 mb-5 mt-5">
             All Todos
           </h1>
           <table className="table-auto text-left whitespace-no-wrap">
@@ -157,7 +171,7 @@ function TodoList() {
                   Add Task
                 </th>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                  Details
+                  View Task
                 </th>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                   Edit
@@ -174,36 +188,36 @@ function TodoList() {
                     <td className="px-4 py-3 text-black font-bold text-md">
                       {todo.title}
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3 text-center">
                       <button
                         onClick={() => addTaskToTodo(todo)}
                         className="text-blue-500 font-semibold"
                       >
-                        Add Tasks
+                        <FaPlus />
                       </button>
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3 text-center">
                       <button
                         onClick={() => fetchTaskData(todo)}
-                        className="text-blue-500 font-semibold"
+                        className=" text-blue-500 font-semibold"
                       >
-                        View Tasks
+                        <FaAlignJustify />
                       </button>
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3 text-center">
                       <button
                         onClick={() => handleEdit(todo)}
-                        className="text-green-700 font-semibold"
+                        className="text-green-700 font-semibold "
                       >
-                        Edit
+                        <FaPenNib />
                       </button>
                     </td>
-                    <td className="px-4 py-3 text-lg text-gray-900">
+                    <td className="px-4 py-3 text-lg text-center text-gray-900">
                       <button
                         onClick={() => handleDelete(todo._id)}
                         className="text-red-500 font-semibold"
                       >
-                        Delete
+                        <FaTrash />
                       </button>
                     </td>
                   </tr>
@@ -213,7 +227,7 @@ function TodoList() {
         </div>
 
         <div className="lg:w-2/2 container ml-14">
-          <h1 className="sm:text-3xl lg:w-3/4 text-2xl font-medium title-font text-gray-900 mb-5">
+          <h1 className="sm:text-3xl lg:w-3/4 text-2xl font-medium title-font text-gray-900 mb-5 mt-5">
             Tasks
           </h1>
 
@@ -247,20 +261,20 @@ function TodoList() {
                       <td className="px-4 py-3 text-black font-bold text-md">
                         {task}
                       </td>
-                      <td className="px-4 py-3">
+                      <td className="px-4 py-3 text-center">
                         <button
                           onClick={() => handleEditTask(task, key)}
                           className="text-green-700 font-semibold"
                         >
-                          Edit
+                          <FaPenNib />
                         </button>
                       </td>
-                      <td className="px-4 py-3 text-lg text-gray-900">
+                      <td className="px-4 py-3 text-lg text-gray-900 text-center">
                         <button
                           onClick={() => handleDeleteTask(task)}
                           className="text-red-500 font-semibold"
                         >
-                          Delete
+                          <FaTrash />
                         </button>
                       </td>
                     </tr>
@@ -270,6 +284,7 @@ function TodoList() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </section>
   );
 }

@@ -3,11 +3,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "./user/Dashboard";
 import SignIn from "./user/SignIn";
 import SignUp from "./user/SignUp";
+import Header from "./components/Header";
 
 function App() {
   return (
-    <div>
+    <div className="container">
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route path="/" element={<SignIn />} />
           <Route path="/signin" element={<SignIn />} />
