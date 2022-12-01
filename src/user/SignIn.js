@@ -9,6 +9,7 @@ function SignIn() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -19,7 +20,6 @@ function SignIn() {
 
   const handleClick = (e) => {
     e.preventDefault();
-    console.log("login clicked");
     let data = JSON.stringify({
       password,
       email,
@@ -47,7 +47,11 @@ function SignIn() {
         navigate("/dashboard");
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response.data);
+        setError(error.response.data.message);
+        setTimeout(() => {
+          setError("");
+        }, 5000);
       });
   };
 
@@ -86,9 +90,8 @@ function SignIn() {
               className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>
-          <a href="#" className="text-xs text-purple-600 hover:underline">
-            Forget Password?
-          </a>
+          {error && <span className="text-red-500">{error}</span>}
+
           <h1></h1>
           <div className="mt-6">
             <button
