@@ -12,7 +12,7 @@ function Form() {
     const data = {
       title: title,
     };
-    const res = await axios.post("/createTodo", data);
+    const res = await axios.post(`/createTodo`, data);
     console.log(res);
     toast.success("Created Todo Succesfully !", {
       position: "bottom-right",
