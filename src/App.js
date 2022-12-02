@@ -5,6 +5,8 @@ import SignIn from "./user/SignIn";
 import SignUp from "./user/SignUp";
 import Header from "./components/Header";
 
+import Test from "./components/Test";
+
 function App() {
   return (
     <div className="container">
@@ -19,6 +21,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </div>
+    //<Test />
   );
 }
 

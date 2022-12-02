@@ -126,7 +126,6 @@ function SignIn() {
           </a>
         </p>
       </div>
-      <ToastContainer />
     </div>
   );
 }

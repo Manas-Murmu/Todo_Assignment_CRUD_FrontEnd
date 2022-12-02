@@ -23,28 +23,30 @@ function Header() {
   };
 
   return (
-    <header className="header">
-      <div className="logo">
-        <Link to="/">Todo App</Link>
-      </div>
-      <ul>
-        <li>
-          <Link to="/signin" onClick={logout}>
-            <FaSignOutAlt /> Logout
-          </Link>
-        </li>
-        <li>
-          <Link to="/signin">
-            <FaSignInAlt /> Login
-          </Link>
-        </li>
-        <li>
-          <Link to="/signup">
-            <FaUser /> Register
-          </Link>
-        </li>
-      </ul>
-    </header>
+    <div>
+      <header className="header">
+        <div className="logo">
+          <Link to="/">Todo App</Link>
+        </div>
+        <ul>
+          <li>
+            <Link to="/signin" onClick={logout}>
+              <FaSignOutAlt /> Logout
+            </Link>
+          </li>
+          <li>
+            <Link to="/signin">
+              <FaSignInAlt /> Login
+            </Link>
+          </li>
+          <li>
+            <Link to="/signup">
+              <FaUser /> Register
+            </Link>
+          </li>
+        </ul>
+      </header>
+    </div>
   );
 }
 

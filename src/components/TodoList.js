@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import moment from "moment";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { FaTrash, FaPenNib, FaPlus, FaAlignJustify } from "react-icons/fa";
+import {
+  FaTrash,
+  FaPenNib,
+  FaPlus,
+  FaAlignJustify,
+  FaSort,
+} from "react-icons/fa";
 
 const BASEURL = "https://todoassignmentcrud-production.up.railway.app";
 
@@ -10,6 +17,9 @@ function TodoList() {
   const [todosData, setTodosData] = useState("");
   const [taskData, setTaskData] = useState("");
   const [taskId, setTaskId] = useState("");
+
+  //Sort
+  const [order, setOrder] = useState("ASC");
 
   const fetchUserData = async () => {
     const response = await axios.get(`${BASEURL}/getAllTodos`);
@@ -154,6 +164,30 @@ function TodoList() {
     console.log(response);
   };
 
+  const sorting = (a, b) => {
+    if (order === "ASC") {
+      const sorted = [...todosData].sort((a, b) => {
+        a = new Date(a).getTime();
+        b = new Date(b).getTime();
+
+        return b > a ? 1 : -1;
+      });
+      console.log(sorted);
+      setTodosData(sorted);
+      setOrder("DSC");
+    }
+    if (order === "DSC") {
+      const sorted = [...todosData].sort((a, b) => {
+        a = new Date(a).getTime();
+        b = new Date(b).getTime();
+        console.log(a);
+        return b < a ? 1 : -1;
+      });
+      setTodosData(sorted);
+      setOrder("ASC");
+    }
+  };
+
   return (
     <section className="m-auto p-1 text-grey-darkest">
       <div className="container px-5 py-1 mx-auto grid grid-cols-2">
@@ -164,10 +198,17 @@ function TodoList() {
           <table className="table-auto text-left whitespace-no-wrap">
             <thead>
               <tr>
-                <th className="px-4 py-3 title-font tracking-wider font-medium  text-gray-900 font-semibold bg-gray-100 rounded-tl rounded-bl">
+                <th
+                  onClick={() => sorting("createdAt")}
+                  className="px-4 py-3 title-font tracking-wider font-medium text-gray-900  bg-gray-100 rounded-tl rounded-bl cursor-pointer"
+                >
+                  Created At
+                  <FaSort className="flex flex-auto text-center" />
+                </th>
+                <th className="px-4 py-3 title-font tracking-wider font-medium  text-gray-900  bg-gray-100 rounded-tl rounded-bl">
                   Title
                 </th>
-                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900  text-sm bg-gray-100">
                   Add Task
                 </th>
                 <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
@@ -186,6 +227,9 @@ function TodoList() {
                 todosData.map((todo) => (
                   <tr>
                     <td className="px-4 py-3 text-black font-bold text-md">
+                      {moment(todo.createdAt).format("MMM Do YYYY,h:mm:ss a")}
+                    </td>
+                    <td className="px-4 py-3 text-black font-bold text-md">
                       {todo.title}
                     </td>
                     <td className="px-4 py-3 text-center">
@@ -193,7 +237,7 @@ function TodoList() {
                         onClick={() => addTaskToTodo(todo)}
                         className="text-blue-500 font-semibold"
                       >
-                        <FaPlus />
+                        Add
                       </button>
                     </td>
                     <td className="px-4 py-3 text-center">
@@ -201,7 +245,7 @@ function TodoList() {
                         onClick={() => fetchTaskData(todo)}
                         className=" text-blue-500 font-semibold"
                       >
-                        <FaAlignJustify />
+                        View
                       </button>
                     </td>
                     <td className="px-4 py-3 text-center">
@@ -226,7 +270,7 @@ function TodoList() {
           </table>
         </div>
 
-        <div className="lg:w-2/2 container ml-14">
+        <div className="lg:w-1/2 container ml-14">
           <h1 className="sm:text-3xl lg:w-3/4 text-2xl font-medium title-font text-gray-900 mb-5 mt-5">
             Tasks
           </h1>

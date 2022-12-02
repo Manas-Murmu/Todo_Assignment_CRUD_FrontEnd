@@ -3,6 +3,8 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+const BASEURL = "https://todoassignmentcrud-production.up.railway.app";
+
 function Form() {
   //To Store the Value from FrontEnd
   const [title, setTitle] = useState("");
@@ -12,7 +14,7 @@ function Form() {
     const data = {
       title: title,
     };
-    const res = await axios.post(`/createTodo`, data);
+    const res = await axios.post(`${BASEURL}/createTodo`, data);
     console.log(res);
     toast.success("Created Todo Succesfully !", {
       position: "bottom-right",
