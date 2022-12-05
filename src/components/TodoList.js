@@ -3,17 +3,11 @@ import axios from "axios";
 import moment from "moment";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  FaTrash,
-  FaPenNib,
-  FaPlus,
-  FaAlignJustify,
-  FaSort,
-} from "react-icons/fa";
+import { FaTrash, FaPenNib, FaSort } from "react-icons/fa";
 
 const BASEURL = "https://todoassignmentcrud-production.up.railway.app";
 
-function TodoList() {
+function TodoList({ id }) {
   const [todosData, setTodosData] = useState("");
   const [taskData, setTaskData] = useState("");
   const [taskId, setTaskId] = useState("");
@@ -22,7 +16,7 @@ function TodoList() {
   const [order, setOrder] = useState("ASC");
 
   const fetchUserData = async () => {
-    const response = await axios.get(`${BASEURL}/getAllTodos`);
+    const response = await axios.get(`${BASEURL}/getAllTodos/${id}`);
     setTodosData(response.data.allTodos);
   };
 
@@ -37,7 +31,7 @@ function TodoList() {
 
   useEffect(() => {
     fetchUserData();
-  }, [todosData, taskData]);
+  }, [todosData]);
 
   //Handle Edit
   const handleEdit = async (user) => {

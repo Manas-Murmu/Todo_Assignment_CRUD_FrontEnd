@@ -16,7 +16,7 @@ function SignIn() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      navigate("/dashboard");
+      navigate("/profile");
     }
   }, [navigate]);
 
@@ -44,11 +44,14 @@ function SignIn() {
         .post(`${BASEURL}/login`, data, {
           headers: {
             "Content-Type": "application/json",
+            withCredentials: true,
           },
         })
         .then(function (response) {
-          console.log(response.data);
+          const users = response.data.user;
+          console.log(users);
           localStorage.setItem("token", response.data.token);
+          localStorage.setItem("user", JSON.stringify(users));
           toast.success("Login Succes!", {
             position: "top-right",
             autoClose: 2000,
@@ -59,7 +62,7 @@ function SignIn() {
             progress: undefined,
             theme: "light",
           });
-          navigate("/dashboard");
+          navigate("/profile");
         })
         .catch((error) => {
           console.log(error.response.data);
