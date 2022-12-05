@@ -7,7 +7,7 @@
 
 ---
 
-## Live Link [Demo](https://manas-murmu-todo-client.netlify.app/)
+## Live Link [Demo](https://todo-crud-front-end-manas-murmu.vercel.app/)
 
 ### Screenshot
 
