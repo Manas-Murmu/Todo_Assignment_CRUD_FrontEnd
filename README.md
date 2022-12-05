@@ -7,10 +7,12 @@
 
 ---
 
-## Live Link [Demo]()
+## Live Link [Demo](https://manas-murmu-todo-client.netlify.app/)
 
 ### Screenshot
 
-![screeshot](./screenshot.png)
+![screeshot](/screenshot.png)
+![screeshot](/lOGIN.png)
+![screeshot](/REGISTER.png)
 
 ---
