@@ -264,12 +264,12 @@ function TodoList({ id }) {
           </table>
         </div>
 
-        <div className="lg:w-full container ml-14">
+        <div className="lg:w-full container">
           <h1 className="sm:text-3xl lg:w-3/4 text-2xl font-medium title-font text-gray-900 mb-5 mt-5">
             Tasks
           </h1>
 
-          <div className="relative">
+          <div className="releative">
             <table className="table-auto text-left whitespace-no-wrap">
               <thead>
                 <tr>
