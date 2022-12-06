@@ -41,14 +41,14 @@ function Form({ id }) {
       <form>
         <section className="text-gray-600 body-font relative">
           <div className="container px-5 py-8 mx-auto">
-            <div className="flex flex-col text-center justify-items-center mx-auto w-full mb-6">
-              <h1 className="sm:text-3xl lg:w-3/4 text-2xl text-left font-medium title-font text-gray-900">
+            <div className="flex flex-col text-center justify-items-center mx-auto w-full ">
+              <h1 className="sm:text-3xl lg:w-3/4 text-2xl text-left font-medium title-font text-gray-900 mt-5">
                 Create Todos
               </h1>
             </div>
             <div className="lg:w-1/2 md:w-2/3 lg:w-3/5">
               <div className="flex flex-wrap -m-2">
-                <div className="p-2 w-1/2">
+                <div className="p-2 w-full lg:w-1/2">
                   <div className="relative">
                     <label
                       htmlFor="name"
@@ -66,6 +66,7 @@ function Form({ id }) {
                     />
                   </div>
                 </div>
+
                 <div className="p-2 w-full">
                   <button
                     onClick={handleSubmit}

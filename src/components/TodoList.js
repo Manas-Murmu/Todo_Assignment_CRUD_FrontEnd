@@ -184,8 +184,8 @@ function TodoList({ id }) {
 
   return (
     <section className="m-auto p-1 text-grey-darkest">
-      <div className="container px-5 py-1 mx-auto grid grid-cols-2">
-        <div className="lg:w-2/2 w-full overflow-auto">
+      <div className="container px-5 py-1 mx-auto grid lg:grid-cols-3">
+        <div className="lg:w-full w-full overflow-auto col-span-2">
           <h1 className="sm:text-3xl lg:w-3/4 text-2xl text-left font-medium title-font text-gray-900 mb-5 mt-5">
             All Todos
           </h1>
@@ -194,10 +194,10 @@ function TodoList({ id }) {
               <tr>
                 <th
                   onClick={() => sorting("createdAt")}
-                  className="px-4 py-3 title-font tracking-wider font-medium text-gray-900  bg-gray-100 rounded-tl rounded-bl cursor-pointer"
+                  className="flex px-4 py-3 title-font tracking-wider font-medium text-gray-900  bg-gray-100 rounded-tl rounded-bl cursor-pointer"
                 >
                   Created At
-                  <FaSort className="flex flex-auto text-center" />
+                  <FaSort className="mt-6" />
                 </th>
                 <th className="px-4 py-3 title-font tracking-wider font-medium  text-gray-900  bg-gray-100 rounded-tl rounded-bl">
                   Title
@@ -264,7 +264,7 @@ function TodoList({ id }) {
           </table>
         </div>
 
-        <div className="lg:w-1/2 container ml-14">
+        <div className="lg:w-full container ml-14">
           <h1 className="sm:text-3xl lg:w-3/4 text-2xl font-medium title-font text-gray-900 mb-5 mt-5">
             Tasks
           </h1>
